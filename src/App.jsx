@@ -1,8 +1,10 @@
 
 import './App.css'
+import NotFoundPage from './components/Error/NotFoundPage';
+import ItemDetailContainer from './components/ItemDetailContainer/ItemDetailContainer';
 import ItemListContainer from './components/ItemListContainer/ItemListContainer';
-import NavbarReelFun from './components/Navbar/CartWidget/NavbarReelFun';
-
+import NavbarReelFun from './components/Navbar/NavbarReelFun';
+import { Routes,Route } from 'react-router-dom';
 function App() {
 
   /* items en el carrito */
@@ -11,11 +13,24 @@ function App() {
   const itemListContainerTit = "Bienvenidos ReelFun!!!";  
   const itemListContainerDet = "Pagina en desarrollo..."; 
   return (
-    <>
-      <NavbarReelFun  itemCount={itemCount} />
-      <ItemListContainer itemListTit={itemListContainerTit} itemListDet={itemListContainerDet} />
+    <>      
+      <NavbarReelFun  itemCount={itemCount} /> 
+      <Routes>
+        {/* si (url ==="?") => retorna <Component>) */} 
+        
+        {/*Rutas dinamicas para un mismo componente  */}
+        <Route path="/categoria/:tipoCat" element={<ItemListContainer/>}></Route>
+        <Route path="/producto/detalle/:idProd" element={<ItemDetailContainer/>}></Route>   
+
+        <Route path="/carrito" element="Pagina en Desarrollo"></Route>   
+
+        {/* 404 caputuro cualquier ruta no deseada*/}
+        <Route path="*" element={<NotFoundPage />} />
+
+      </Routes>
     </>
   );
 }
 
 export default App
+
