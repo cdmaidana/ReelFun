@@ -9,18 +9,18 @@ const ItemDetailContainer = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const params = useParams(); 
+  const { idProd } = useParams(); 
 
   useEffect(() => {
     setLoading(true);
     setError(null);
 
-    getProdById(params.idProd)
+    getProdById(idProd)
       .then(prod => setProducto(prod)) 
       .catch(error => setError('Ocurrio un error al buscar el Producto.'))
       .finally(() => setLoading(false)); 
 
-  }, [params])
+  }, [idProd])
  
   if (loading ) {
     return (<Container><p>Cargando producto...</p></Container>);

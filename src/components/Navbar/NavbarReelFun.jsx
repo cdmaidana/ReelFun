@@ -23,7 +23,7 @@ const NavbarReelFun = ({ itemCount }) => {
                 <NavLink className="nav-link-clean" to="/categoria/accesorios">Accesorios</NavLink> 
               </Nav.Link>
             </Nav>  
-            <CartWidget itemCount={itemCount} />           
+            <CartWidget/>           
       </Navbar>
     </Container> 
   );

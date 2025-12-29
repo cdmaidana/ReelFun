@@ -9,14 +9,14 @@ function App() {
 
   /* items en el carrito */
   const itemCount = 0;
-  /* lLeyenda para el itemListContainer. Parte de la consigna */
-  const itemListContainerTit = "Bienvenidos ReelFun!!!";  
-  const itemListContainerDet = "Pagina en desarrollo..."; 
+
   return (
     <>      
       <NavbarReelFun  itemCount={itemCount} /> 
       <Routes>
         {/* si (url ==="?") => retorna <Component>) */} 
+        
+        <Route path="/" element={<ItemListContainer />} />
         
         {/*Rutas dinamicas para un mismo componente  */}
         <Route path="/categoria/:tipoCat" element={<ItemListContainer/>}></Route>
@@ -24,7 +24,7 @@ function App() {
 
         <Route path="/carrito" element="Pagina en Desarrollo"></Route>   
 
-        {/* 404 caputuro cualquier ruta no deseada*/}
+        {/* 404 capturo cualquier ruta no deseada*/}
         <Route path="*" element={<NotFoundPage />} />
 
       </Routes>

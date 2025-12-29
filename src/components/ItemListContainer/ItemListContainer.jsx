@@ -9,7 +9,9 @@ const ItemListContainer = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const params = useParams();
+  /* Se inicializa a "home" para los paths "/", o explicitamente desde
+  el brand del navbar  */
+  const { tipoCat = "home" } = useParams();
 
   
   /**Inicializacion lista de productos */
@@ -17,16 +19,16 @@ const ItemListContainer = () => {
     setLoading(true);
     setError(null);
     
-    const loader = params.tipoCat === "home"
+    const loader = tipoCat=== "home"
     ? loadProductos()
-    : filtrarProductosByCat(params.tipoCat);
+    : filtrarProductosByCat(tipoCat);
 
     loader
       .then(setProductos)
       .catch(err => setError(`Ocurrio un error al cargar los productos`))
       .finally(() => setLoading(false));
 
-  }, [params]);
+  }, [tipoCat]);
   
   if (loading ) {
     return (<Container className="d-flex justify-content-center align-items-center" style={{ height: "70vh" }}>

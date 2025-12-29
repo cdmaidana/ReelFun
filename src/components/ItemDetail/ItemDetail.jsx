@@ -1,5 +1,7 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { ListGroup,Button,Card, Col,Row, Container, Stack } from 'react-bootstrap';
+import ItemCount from '../ItemCount/ItemCount';
+import { reelFunContext } from '../../providers/CartProvider';
 
  
 const ItemDetail = ({titulo, 
@@ -21,11 +23,20 @@ const ItemDetail = ({titulo,
     };
 
     const decrementarCantidad = () => {
-      if (cantidad > 1) {
+      if (cantidad >= 1) {
         setCantidad(cantidad - 1);
         setStock(stock + 1);
       }
     }; 
+    
+    const valorActual = useContext(reelFunContext);
+    const addToCart = () => {
+    (cantidad>0)?valorActual.setCantidad(cantidad):alert('Ingrese la cantidad que desea agregar.');
+      
+      
+    };
+   
+
   return (
     <Card >
       <Container>
@@ -53,21 +64,18 @@ const ItemDetail = ({titulo,
                 {stock > 0 ? '' : `Disculpas....solo disponemos de ${stockInicial} unidades de este producto.`}</strong>
               </p>
               <p> {stock > 0 ? (`+${stock} disponibles`):('')  }</p>  
-              </Container>  
-              {/* spinner cantidad a comprar*/}
-              <Container className="d-flex justify-content-center mb-3" style={{ width: 160 }}>
-                <Button variant="outline-secondary" onClick={decrementarCantidad}>-</Button>
-                <input
-                  type="text"
-                  className="form-control text-center mx-2"
-                  value={cantidad}
-                  readOnly
-                />
-                <Button variant="outline-secondary" onClick={incrementarCantidad}>+</Button>
+              </Container>                
+              <Container className="d-flex justify-content-center mb-3" style={{ width: 160 }}> 
+                {/* spinner cantidad a comprar*/}
+                <ItemCount
+                    cantidad={cantidad}
+                    incrementar={incrementarCantidad}
+                    decrementar={decrementarCantidad}
+                  />                
               </Container>              
               {/* Botones de accion para agregar al carrito/comprar */}
               <Stack gap={2} className="col-md-8 mx-auto"> 
-                <Button variant="secondary">Agregar al Carrito</Button>
+                <Button variant="secondary" onClick={addToCart} >Agregar al Carrito</Button>
                 <Button variant="primary">Comprar</Button>
               </Stack>
 
