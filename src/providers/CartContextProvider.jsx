@@ -34,16 +34,21 @@ import { getCategoria } from '../services/Productos/TipoProducto';
       } 
     
     const precioXCategoria = (categoria) => {
-        const itemsByCat = carrito.filter(item => getCategoria(item.tipo) === categoria);
-        if (itemsByCat.length>0){
-          return itemsByCat.reduce((precioAcumulado,item) => {precioAcumulado + item.precio*item.cant},0);    
-        }
-        return 0;
-    }
+      const itemsByCat = carrito.filter(
+        item => getCategoria(item.tipo) === categoria
+      );
+
+      return itemsByCat.reduce(
+        (precioAcumulado, item) => precioAcumulado + item.precio * item.cant,
+        0
+      );
+    };
 
 
-    const precioTotal = 
-      carrito.reduce((precioAcumulado,item) => {precioAcumulado + item.precio*item.cant},0);
+    const precioTotal = carrito.reduce(
+      (precioAcumulado,item) => precioAcumulado + item.precio*item.cant,
+      0
+    );
 
     const totalItems = carrito.length;
       //carrito.reduce((itemsAgregados,item) => {itemsAgregados + item.cant},0);
