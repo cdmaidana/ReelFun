@@ -5,12 +5,17 @@ import App from './App.jsx'
 import 'bootstrap/dist/css/bootstrap.min.css';
 //import { BrowserRouter } from 'react-router-dom';
 import { BrowserRouter } from 'react-router-dom'
-import CartProvider from './providers/CartProvider.jsx';
+//import CartProvider from './providers/CartProvider.jsx';
+import CartContextProvider from './providers/CartContextProvider.jsx';
 
 createRoot(document.getElementById('root')).render(
   <BrowserRouter>
-    <CartProvider>
+    {/* <CartProvider>
       <App />
-    </CartProvider>
+    </CartProvider> */}
+    
+    <CartContextProvider>
+      <App />
+    </CartContextProvider> 
   </BrowserRouter>,
 )

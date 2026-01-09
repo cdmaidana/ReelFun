@@ -32,11 +32,14 @@ const ItemDetailContainer = () => {
   if (producto){
   return (
       <Container className="d-flex justify-content-center align-items-center  ">
-         <ItemDetail titulo={producto.titulo }
+         {/* <ItemDetail producto={producto.titulo }
                   desc={producto.desc}
                   img={producto.img}
                   precio={producto.precio}  
-                  especificaciones={new Map(producto.especificaciones)}/>        
+                  stockInicial={producto.stock}  
+                  especificaciones={new Map(producto.especificaciones)}/>    */}     
+          <ItemDetail producto={producto }
+                      especificaciones={new Map(producto.especificaciones)}/>                  
       </Container>
     );
   }

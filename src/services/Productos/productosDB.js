@@ -1,5 +1,5 @@
 export const productos = [
-  {id:1,tipo:'reel',titulo:'Reel LINNHUE RR-AE2000',desc:'Reel Carrete de Pesca LINNHUE RR-AE2000 9 Niveles de Magnético',
+  {id:1,stock:10,tipo:'reel',titulo:'Reel LINNHUE RR-AE2000',desc:'Reel Carrete de Pesca LINNHUE RR-AE2000 9 Niveles de Magnético',
     precio:'33.999',img:'/img/prod/LINNHUE-RR-AE2000.webp',
     especificaciones:[
       ['tipo','rotativo'],
@@ -15,7 +15,7 @@ export const productos = [
       ['materil','mango de metal CNC, empuñadura de eva, carrete de aleación de aluminio, cuerpo de nailon reforzado, engranaje de aluminio, varilla dentada de cobre.']
 	  ]
    } ,
-  {id:2,tipo:'reel',titulo:'Reel Frontal Amberjack 7000',desc:'Reel Frontal Amberjack 7000 12 Rul Pesca Variada 10kg Drag Color Negro Y Dorado 7000',
+  {id:2,stock:10,tipo:'reel',titulo:'Reel Frontal Amberjack 7000',desc:'Reel Frontal Amberjack 7000 12 Rul Pesca Variada 10kg Drag Color Negro Y Dorado 7000',
     precio:'36.575',img:'/img/prod/Amberjack-7000.webp',
     especificaciones:[
       ['tipo','frontal'],
@@ -29,7 +29,7 @@ export const productos = [
       ['alarmaPique','si']
     ]
    },
-  {id:3,tipo:'reel',titulo:'Reel Huevito Caster Legend Pro 110',desc:'Reel Huevito Caster Legend Pro 110 Baitcasting 10 Rulemanes Color Gris - Manija Derecha',
+  {id:3,stock:10,tipo:'reel',titulo:'Reel Huevito Caster Legend Pro 110',desc:'Reel Huevito Caster Legend Pro 110 Baitcasting 10 Rulemanes Color Gris - Manija Derecha',
     precio:'108.289',img:'/img/prod/CasterLegendPro110.webp',
     especificaciones:[
       ['tipo','rotativo'],
@@ -43,7 +43,7 @@ export const productos = [
       ['alarmaPique','si']
    ]
    },
-  {id:4,tipo:'cana',titulo:'Caña Caster Sniper',desc:'Caña Caster Sniper 4.20m 3 Tramos Lance Costa Mar 100-200g',
+  {id:4,stock:10,tipo:'cana',titulo:'Caña Caster Sniper',desc:'Caña Caster Sniper 4.20m 3 Tramos Lance Costa Mar 100-200g',
     precio:'89.475',img:'/img/prod/CasterSniper3Tramos.webp',
     especificaciones:[
       ['peso','70g'],
@@ -56,7 +56,7 @@ export const productos = [
       ['tramos','3'] 
   ]
    },
-  {id:5,tipo:'anzuelo',titulo:'Caja Anzuelos',desc:'Caja Con 300 Anzuelos Pesca Variada #9 Al #16',
+  {id:5,stock:10,tipo:'anzuelo',titulo:'Caja Anzuelos',desc:'Caja Con 300 Anzuelos Pesca Variada #9 Al #16',
     precio:'24.500',img:'/img/prod/cajaAnzuelosVariada.webp',
     especificaciones:[
       ['marca','Anmuka'], 
@@ -66,7 +66,7 @@ export const productos = [
       ['material','Acero inoxidable'] 
    ]
    },
-  {id:6,tipo:'anzuelo',titulo:'Blister Anzuelos Pesca',desc:'Blister Anzuelos Pesca Variada #9 Al #16',
+  {id:6,stock:10,tipo:'anzuelo',titulo:'Blister Anzuelos Pesca',desc:'Blister Anzuelos Pesca Variada #9 Al #16',
     precio:'24.500',img:'/img/prod/blisterAnzuelosVariada.webp',
     especificaciones:[
       ['marca','Kamakura'], 
@@ -76,7 +76,7 @@ export const productos = [
       ['material', 'Acero al carbono' ]
     ]
    },
-   {id:7,tipo:'plomada',titulo:'Plomada Municion Partida',desc:'Plomada Municion Partida Pesca Caja Organizadora 50 Unidades',
+   {id:7,stock:10,tipo:'plomada',titulo:'Plomada Municion Partida',desc:'Plomada Municion Partida Pesca Caja Organizadora 50 Unidades',
     precio:'24.500',img:'/img/prod/plomadaMunicionPartida.webp',
     especificaciones:[
       ['marca','X-Fish'],
@@ -86,7 +86,7 @@ export const productos = [
       ['envase','blister']  
    ]
    },
-  {id:8,tipo:'plomada',titulo:'Plomada Corrediza',desc:'Plomos Plomadas Corrediza 20grs 40grs Surtidas Rio Pack X10',
+  {id:8,stock:10,tipo:'plomada',titulo:'Plomada Corrediza',desc:'Plomos Plomadas Corrediza 20grs 40grs Surtidas Rio Pack X10',
     precio:'6.999',img:'/img/prod/plomadasCorrediza20.webp',
     especificaciones:[
       ['marca','Red Fish'],
@@ -96,7 +96,7 @@ export const productos = [
       ['envase','blister']
     ]
    },
-  {id:9,tipo:'cana',titulo:'Caña Shimano Stimula 6.6',desc:'Caña Shimano Stimula 6.6 Pies 6-10lbs 2 Tramos Spinning',
+  {id:9,stock:10,tipo:'cana',titulo:'Caña Shimano Stimula 6.6',desc:'Caña Shimano Stimula 6.6 Pies 6-10lbs 2 Tramos Spinning',
     precio:'60.705',img:'/img/prod/canashimanostimula66.webp',
     especificaciones:[
       ['peso','120g'],
@@ -109,7 +109,7 @@ export const productos = [
       ['tramos','2'] 
   ]
    } ,
-  {id:10,tipo:'cana',titulo:'Caña Okuma Morena Power 2.10',desc:'Caña Okuma Morena Power 2.10 1 Tr Trolling Rotativo 15-45 Lb',
+  {id:10,stock:10,tipo:'cana',titulo:'Caña Okuma Morena Power 2.10',desc:'Caña Okuma Morena Power 2.10 1 Tr Trolling Rotativo 15-45 Lb',
     precio:'234.710',img:'/img/prod/canamorenapowerokuma.webp',
     especificaciones:[
       ['peso','120g'],

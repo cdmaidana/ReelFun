@@ -7,7 +7,7 @@ import { NavLink } from 'react-router-dom';
 import NavBarBrand from './NavBarBrand';
 import './NavBar.css';
 
-const NavbarReelFun = ({ itemCount }) => {
+const NavbarReelFun = () => {
   return (
     <Container>
       <Navbar  bg="light" data-bs-theme="light" fixed="top" expand="lg"> 

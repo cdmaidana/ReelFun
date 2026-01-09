@@ -6,13 +6,11 @@ import ItemListContainer from './components/ItemListContainer/ItemListContainer'
 import NavbarReelFun from './components/Navbar/NavbarReelFun';
 import { Routes,Route } from 'react-router-dom';
 function App() {
-
-  /* items en el carrito */
-  const itemCount = 0;
+ 
 
   return (
     <>      
-      <NavbarReelFun  itemCount={itemCount} /> 
+      <NavbarReelFun   /> 
       <Routes>
         {/* si (url ==="?") => retorna <Component>) */} 
         
