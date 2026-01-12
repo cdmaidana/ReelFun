@@ -20,7 +20,17 @@ import { getCategoria } from '../services/Productos/TipoProducto';
               console.log('Stock no disponible');
               return carritoActual;  
             }
-            return [...carritoActual,{...producto,cant}];
+            //return [...carritoActual,{...producto,cant}];
+            return [
+                  ...carritoActual,
+                  {
+                    id: producto.id,
+                    tipo:producto.tipo,
+                    titulo: producto.titulo,
+                    precio: producto.precio,
+                    cant: cant
+                  }
+                ];
           }
           const cantidadAcumulada = productoYaAgregado.cant + cant;
           if (cantidadAcumulada > producto.stock){

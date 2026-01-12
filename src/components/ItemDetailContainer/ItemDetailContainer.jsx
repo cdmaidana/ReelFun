@@ -1,5 +1,5 @@
 import  { useEffect, useState } from 'react'
-import { getProdById } from '../../services/Productos/ProductoService'
+import { getProdById } from '../../services/Productos/newProductoService'
 import ItemDetail from '../ItemDetail/ItemDetail'
 import { useParams } from 'react-router-dom'
 import { Alert, Container } from 'react-bootstrap'
