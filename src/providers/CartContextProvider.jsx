@@ -33,21 +33,34 @@ import { getCategoria } from '../services/Productos/TipoProducto';
         });
       } 
     
+    const carritoAgrupado = carrito.reduce((mapaCategorias, item) => {
+                            const categoria = getCategoria(item.tipo);
+                            mapaCategorias[categoria] = mapaCategorias[categoria] || [];
+                            mapaCategorias[categoria].push(item);
+                            return mapaCategorias;
+                        }, {});
+
     const precioXCategoria = (categoria) => {
       const itemsByCat = carrito.filter(
         item => getCategoria(item.tipo) === categoria
       );
 
       return itemsByCat.reduce(
-        (precioAcumulado, item) => precioAcumulado + item.precio * item.cant,
+        (precioAcumulado, item) => {
+          precioAcumulado = precioAcumulado + item.precio * item.cant;
+          return precioAcumulado;
+        },
         0
       );
     };
 
 
     const precioTotal = carrito.reduce(
-      (precioAcumulado,item) => precioAcumulado + item.precio*item.cant,
-      0
+      (precioAcumulado,item) =>  {
+          precioAcumulado = precioAcumulado + item.precio * item.cant;
+          return precioAcumulado;
+        },
+        0
     );
 
     const totalItems = carrito.length;
@@ -61,7 +74,7 @@ import { getCategoria } from '../services/Productos/TipoProducto';
 
     return (
       <Provider
-        value={{ carrito, productoEnCarrito, agregarProducto, eliminarProducto, limpiarCarrito,precioTotal,precioXCategoria,totalItems }}
+        value={{ carrito, productoEnCarrito, agregarProducto, eliminarProducto, limpiarCarrito,precioTotal,precioXCategoria,totalItems,carritoAgrupado }}
         >
         {children}  
       </Provider>  

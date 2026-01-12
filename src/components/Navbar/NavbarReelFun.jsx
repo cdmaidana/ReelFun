@@ -30,29 +30,29 @@ import {   categoriasNavConfig    } from '../../services/Productos/TipoProducto'
   );
 }; */
 const NavbarReelFun = () => {
-  return (
-    <Container>
+  return ( 
       <Navbar bg="light" fixed="top" expand="lg">
-        <NavBarBrand />
-        <Navbar.Toggle aria-controls="main-navbar" />
-        <Navbar.Collapse id="main-navbar">
-          <Nav className="me-auto">
-            {categoriasNavConfig.map(({ key, label, path }) => (
-              <Nav.Link as="span" key={key}>
-                <NavLink
-                  to={path}
-                  className={({ isActive }) =>
-                              `nav-link-clean ${isActive ? "active" : ""}`
-                              }>
-                  {label}
-                </NavLink>
-              </Nav.Link>
-            ))}
-          </Nav> 
-          <CartWidget />
-        </Navbar.Collapse>
-      </Navbar>
-    </Container>
+        <Container fluid>  
+          <NavBarBrand />
+          <Navbar.Toggle aria-controls="main-navbar" />
+          <Navbar.Collapse id="main-navbar">
+            <Nav className="me-auto">
+              {categoriasNavConfig.map(({ key, label, path }) => (
+                <Nav.Link as="span" key={key}>
+                  <NavLink
+                    to={path}
+                    className={({ isActive }) =>
+                                `nav-link-clean ${isActive ? "active" : ""}`
+                                }>
+                    {label}
+                  </NavLink>
+                </Nav.Link>
+              ))}
+            </Nav> 
+            <CartWidget />
+          </Navbar.Collapse>
+         </Container>
+      </Navbar> 
   );
 };
 

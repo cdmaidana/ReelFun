@@ -3,9 +3,11 @@ export const categoriasMap = {
   "anzuelo": "accesorios",
   "plomada": "accesorios",
   "cana": "canas" 
-}; 
+};  
 
 export const getCategoria = (tipo) => categoriasMap[tipo] ?? "Sin definir";
+
+
 
 export const categoriasNavConfig = [
   {
@@ -24,6 +26,10 @@ export const categoriasNavConfig = [
     path: "/categoria/accesorios",
   },
 ];
+
+export const getCategoriaLabel = (key) => {
+  return categoriasNavConfig.find(c => c.key === key)?.label;
+};
 
 /*
 export const navbarCategorias = Array.from(

@@ -3,11 +3,13 @@ import { ListGroup,Button,Card, Col,Row, Container, Stack } from 'react-bootstra
 import ItemCount from '../ItemCount/ItemCount';
 import { reelFunContext } from '../../providers/CartProvider';
 import { ReelFunContext } from '../../providers/CartContextProvider';
+import { Link } from 'react-router-dom';
 
  
 const ItemDetail = ({producto, especificaciones =  []}) => {
     /**unidades del producto a comprar */
     const [cantidad, setCantidad] = useState(0);
+    const [habilitaCompra, setHabilitaCompra] = useState(false);
     /**stock inicial del producto, harcodeado en 10 por ahora */
     const [stockActual, setStock] = useState(producto.stock); 
 
@@ -27,9 +29,18 @@ const ItemDetail = ({producto, especificaciones =  []}) => {
     
     //const valorActual = useContext(reelFunContext);
     const cartContext = useContext(ReelFunContext);
-    const addToCart = () => {(cantidad>0)?cartContext.agregarProducto(producto,cantidad):alert('Ingrese la cantidad que desea agregar.'); };
-   
-
+   /*  const addToCart = () => {(cantidad>0)?
+        {cartContext.agregarProducto(producto,cantidad);setHabilitaCompra(true)}
+        :alert('Ingrese la cantidad que desea agregar.'); 
+      }; */
+    
+    const addToCart = () => 
+        { if(cantidad>0)
+            {cartContext.agregarProducto(producto,cantidad);
+              setHabilitaCompra(true)}
+          else
+            alert('Ingrese la cantidad que desea agregar.'); 
+         }   
   return (
     <Card >
       <Container>
@@ -69,7 +80,21 @@ const ItemDetail = ({producto, especificaciones =  []}) => {
               {/* Botones de accion para agregar al carrito/comprar */}
               <Stack gap={2} className="col-md-8 mx-auto"> 
                 <Button variant="secondary" onClick={addToCart} >Agregar al Carrito</Button>
-                <Button variant="primary">Comprar</Button>
+                {/* <Button variant="primary">Comprar</Button> */}
+                {/* <Link to="/carrito">
+                  <Button disabled={!habilitaCompra} variant="primary">Terminar Compra</Button>
+                </Link> */}
+                {habilitaCompra ? (
+                  <Link to="/carrito">
+                    <Button variant="primary">
+                      Terminar Compra
+                    </Button>
+                  </Link>
+                ) : (
+                  <Button variant="primary" disabled>
+                    Terminar Compra
+                  </Button>
+                )}
               </Stack>
 
             </Card.Body>
