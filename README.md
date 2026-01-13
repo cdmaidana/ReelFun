@@ -10,7 +10,7 @@
   - [Tipos de Producto](#tipos-de-producto)
 - [Estructura de un Producto](#estructura-de-un-producto)
 - [Diagrama de Entidades (DER)](#diagrama-de-entidades-der)
-- [Librerías Utilizadas](#librerías-utilizadas)
+- [Dependencias del Proyecto](#dependencias-del-proyecto)
 - [Instalación](#instalación)
   - [Configuración General – Base de Datos](#configuración-general--base-de-datos)
   - [Creación del Proyecto en Firebase / Firestore](#creación-del-proyecto-en-firebase--firestore)
@@ -44,20 +44,20 @@ El alcance funcional de la versión actual incluye:
   - Productos agrupados por categoría.
   - Cantidad de unidades por producto.
   - Cálculo del **total del carrito**.
-- Finalización de la compra mostrando un mensaje de **“pago en proceso”**.
+- Finalización de la compra, si se procesa correctamente el carrito se generará una Orden de Compra con los datos del Usuario(*) e items del carrito y se informará el numero de orden generado.
 
 > ⚠️ La funcionalidad de pago **no se encuentra implementada** en esta versión.
-
+> (*) Los datos del usuario son genericos y se inicializan en un contexto el cual puede ser utilizado en futuras integraciones.
 ---
 
 ## Fuera de Alcance
 
 Las siguientes funcionalidades no forman parte del desarrollo actual:
 
-- Integración con servicios de pago.
-- Persistencia del carrito u órden de compra.
+- Integración con servicios de pago. 
 - Gestion del stock por compras realizadas.
 - Gestión de usuarios o autenticación.
+
 
 ---
 
@@ -78,20 +78,29 @@ Las siguientes funcionalidades no forman parte del desarrollo actual:
 | plomadas |        |       | x          |
 | anzuelos |        |       | x          |
 
-La configuración de estas clasificaciones puede consultarse en el archivo **TipoProducto.js**.
+La configuración de estas clasificaciones puede consultar en la seccion 
+[Archivos Configuración](#Archivos-Configuración). Esta configuracion es dinamica y se utiliza para la busqueda de los productos y visualizacion de las clasificaciones en el NAVBAR.
 
 ---
 
 ## Estructura de un Producto
 
 - **id**: identificador único del producto.
-- **stock**: cantidad disponible.
-- **tipo**: reel, caña, plomada o anzuelo.
+- **tipo**: los produtos estan tipificados segun algunos de los siguientes valores: [reel|caña|plomada|anzuelo]
 - **titulo**: nombre del producto.
 - **desc**: descripción ampliada.
 - **precio**: precio del producto.
 - **imagen**: imagen asociada.
+
+## Especificaciones de un Producto
+Cada producto tiene un lista de caracteriscticas, esta informacion se gestiona en otra coleccion y referenciada por el ID del producto.
 - **especificaciones**: lista dinámica de pares nombre–valor.
+
+## Stock de un Producto
+Cada producto tiene un stock, gestionado en la coleccion de Stock referenciado por el id del producto.
+
+## Usuario
+Identifica el usuario loggeado al sistema, se implementa un Context Api para manejar un usuario genérico. De esta manera se permite simular el flujo completo de una orden sin necesidad de un sistema de autenticación, dejando el diseño preparado para futuras integraciones.
 
 ---
 
@@ -99,6 +108,13 @@ La configuración de estas clasificaciones puede consultarse en el archivo **Tip
 
 ```mermaid
 erDiagram
+
+    USUARIO {
+        string name
+        string email
+        phone phone 
+    }
+
     PRODUCTO {
         int id
         string tipo
@@ -118,16 +134,59 @@ erDiagram
 
     PRODUCTO ||--|| STOCK : tiene
     PRODUCTO ||--o{ ESPECIFICACION : posee
+
+    ORDENDECOMPRA{
+        string IDOrden
+        float total
+        string estadoOrden
+        int fechaCreacion
+    }
+
+    ORDENITEMS{
+        int idProducto
+        string titulo
+        float precio
+        int cantidad
+    }
+
+    ORDENDECOMPRA ||--|| USUARIO : tiene
+    ORDENDECOMPRA ||--o{ ORDENITEMS : posee
+
 ```
 
 ---
 
-## Librerías Utilizadas
+ 
 
-- **React JS**
-- **react-bootstrap** `2.10.10`
-- **firebase**
-- **vite** `7.1.7`
+## Dependencias del Proyecto
+El proyecto utiliza las siguientes dependencias principales, organizadas por responsabilidad dentro de la aplicación:
+
+* Core de React
+
+| Dependencia | Versión | Descripción                                                                              |
+| ----------- | ------- | ---------------------------------------------------------------------------------------- |
+| react       | ^19.1.1 | Librería principal para la construcción de interfaces de usuario basadas en componentes. |
+| react-dom   | ^19.1.1 | Permite renderizar la aplicación React en el DOM del navegador.                          |
+
+* Navegación y Ruteo
+
+| Dependencia      | Versión | Descripción                                                 |
+| ---------------- | ------- | ----------------------------------------------------------- |
+| react-router-dom | ^7.9.6  | Manejo de rutas y navegación entre vistas de la aplicación. |
+
+* UI y Estilos
+
+| Dependencia     | Versión  | Descripción                                                                             |
+| --------------- | -------- | --------------------------------------------------------------------------------------- |
+| bootstrap       | ^5.3.8   | Framework CSS utilizado como base de estilos.                                           |
+| react-bootstrap | ^2.10.10 | Componentes Bootstrap adaptados a React, utilizados para acelerar el desarrollo de los componentes. |
+| react-icons     | ^5.5.0   | Biblioteca de íconos SVG utilizada principalmente en el NavBar y el carrito.            |
+
+* Persistencia y Servicios Externos
+
+| Dependencia | Versión | Descripción                                                                              |
+| ----------- | ------- | ---------------------------------------------------------------------------------------- |
+| firebase    | ^12.7.0 | SDK de Firebase utilizado para la conexión con Firestore Database y la gestión de datos. |
 
 ---
 
@@ -195,10 +254,9 @@ npm run dev
 
 ## Archivos Configuración
 
-- **firestore.js**: conexión a Firebase.
-- **categorias.js**: configuracion de las Categorias de los productos .
+- **.\src\services\firebase\conf\firebase-conf.js**: conexión a Firebase.
+- **.\src\services\productos\ClasificacionProducto.js**: configuracion de los Tipos y Categorias de los productos .
 - **scripts/firebase/data.js**: estructura de datos para inicializar las coleeciones de productos, especificaciones y stock.
-- **TipoProducto.js**: definición de tipos y clasificaciones.
 
 ---
 
@@ -207,7 +265,6 @@ npm run dev
 - Mejora de UI/UX.
 - Paginación de productos.
 - Integración con pagos.
-- Persistencia de órdenes.
 
 ---
 
@@ -223,6 +280,7 @@ graph TD
     Router --> ItemListContainer
     Router --> ItemDetailContainer
     Router --> CartDetailContainer
+    Router --> CartConfirmationOrder
 
     Navbar --> CartWidget
 
@@ -243,7 +301,8 @@ graph TD
 - **Router**: manejo de rutas y vistas.
 - **ItemListContainer**: carga y visualización de productos por categoría.
 - **ItemDetailContainer**: visualización del detalle de un producto. Incluye opciones para agregar unidades al carrito y finalizar compra.
-- **CartDetailContainer**: gestión y visualización del carrito.
+- **CartDetailContainer**:  Gestion, Visualización y Confirmación del carrito.
+- **CartConfirmationOrder**: Visualizacion del nro.de orden generado al confirmar el carrito.
 - **CartWidget**: acceso rápido al carrito desde el NavBar.
 
 ---
@@ -269,6 +328,7 @@ Teniendo en cuenta el alcance y objetivos del curso, se implemento el proyecto t
 
 - Se definió una relación lógica 1:1 entre Producto y Stock para facilitar futuras extensiones, por ejemplo consulta a un servicio externo para obtencion del stock.
 - La relación Producto–Especificaciones se modeló como 1:N para adaptarse a productos con atributos variables.
+
 
 ### Estilos y UI
 

@@ -1,10 +1,8 @@
-import  { useEffect, useState } from 'react'
-//import { getProdById } from '../../services/Productos/newProductoService'
+import  { useEffect, useState } from 'react' 
 import ItemDetail from '../ItemDetail/ItemDetail'
 import { useParams } from 'react-router-dom'
 import { Alert, Container, Spinner } from 'react-bootstrap'
-import { getProductoByIdDoc } from '../../services/firebase/firestore/Productos'
-import { findProductoByIdDoc } from '../../services/Productos/newProductoService'
+import { findProductoByIdDoc } from '../../services/productos/ProductoService'
 import WaitingSpinner from '../WaitingSpinner/WaitingSpinner'
 
 const ItemDetailContainer = () => {
@@ -18,24 +16,14 @@ const ItemDetailContainer = () => {
      
       setLoading(true);
       setError(null);  
-     
 
-    //getProdById(idProd)
     findProductoByIdDoc(idProd)
       .then(prod => setProducto(prod)) 
       .catch(error => setError( error))
       .finally(() => setLoading(false)); 
 
   }, [idProd])
- 
-  /* if (loading ) {
-    return ( 
-    <Container className="text-center py-5">
-      <Spinner animation="border" />
-      <p>Cargando producto...</p>
-    </Container>   
-  );
-  } */
+
   if (loading ) {
       return ( 
         <WaitingSpinner text="Aguarde un momento, procesando información del Producto..." /> 
@@ -49,12 +37,6 @@ const ItemDetailContainer = () => {
   if (producto){
   return (
       <Container className="d-flex justify-content-center align-items-center  ">
-         {/* <ItemDetail producto={producto.titulo }
-                  desc={producto.desc}
-                  img={producto.img}
-                  precio={producto.precio}  
-                  stockInicial={producto.stock}  
-                  especificaciones={new Map(producto.especificaciones)}/>    */}     
           <ItemDetail producto={producto }
                       especificaciones={new Map(producto.especificaciones)}/>                  
       </Container>

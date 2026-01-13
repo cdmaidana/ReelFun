@@ -1,9 +1,9 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { Button, Container, Stack, Alert, Row, Form } from 'react-bootstrap';
 import { ReelFunContext } from '../../../providers/CartContextProvider';
 import CartGroupDetail from '../CartGroupDetail/CartGroupDetail';
 import CartEmpty from '../CartEmpty/CartEmpty';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate  } from 'react-router-dom';
 import { useUser } from '../../../providers/UserContextProvider';
 import { serverTimestamp } from 'firebase/firestore';
 import { createOrdenCompra } from '../../../services/firebase/firestore/OrdenesCompra';
@@ -11,21 +11,19 @@ import { createOrdenCompra } from '../../../services/firebase/firestore/OrdenesC
 const CartDetailContainer = () => {
   const { carrito, precioTotal, limpiarCarrito, carritoAgrupado } =
     useContext(ReelFunContext);
+  const navigate = useNavigate();
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
 
-  const { user } = useUser();
-  console.log(user);
-  console.log(carrito);
+  const { user } = useUser(); 
   if (carrito.length === 0) {
     return <CartEmpty />;
-  }
-
-  /* const handleComprar = () => {
-    alert('Pago en proceso, página en construcción');
-    limpiarCarrito();
-  }; */
+  } 
 
    const handleSubmit = async (event) => {
     event.preventDefault(); 
+
+    setLoading(true);
 
      try {
       const ordenCompra = {
@@ -43,14 +41,14 @@ const CartDetailContainer = () => {
       
       const ordenCompraIdDoc = await createOrdenCompra(ordenCompra);
 
-      alert(`Se registro la orden de Compra ${ordenCompraIdDoc}, se redireccionará para el Pago , página en construcción`);
+      navigate(`/orden-confirmada/${ordenCompraIdDoc}`);
 
     } catch (error) {
-      console.error("Error creating order", error);
+        console.error("Error no esperado al confirmar la orden", error);
+        setError("No se pudo generar la orden. Intenta nuevamente.");
     } finally {
-      limpiarCarrito();
-    }
-    
+        setLoading(false);     
+    }  
     
     
   };
@@ -74,7 +72,14 @@ const CartDetailContainer = () => {
               <strong>Total de la compra:</strong> ${precioTotal.toLocaleString()}
             </Alert>
 
-            <Stack direction="horizontal" gap={2} className="justify-content-end">
+            {error && (
+                <Alert variant="danger">
+                  {error}
+                </Alert>
+              )}
+
+            <Stack direction="horizontal" gap={2} className="justify-content-end">              
+
               <Button variant="outline-danger" onClick={limpiarCarrito}>
                 Vaciar carrito
               </Button>
@@ -82,8 +87,8 @@ const CartDetailContainer = () => {
               <Link to="/">
                 <Button variant="primary">Seguir viendo prouctos</Button>
               </Link>
-              <Button variant="success" type="submit" /* onClick={handleComprar} */>
-                Finalizar Compra iniciar Pago
+              <Button variant="success" type="submit" disabled={loading}>               
+                {loading ? "Procesando..." : "Finalizar compra"}
               </Button>
             </Stack>
           </Stack> 

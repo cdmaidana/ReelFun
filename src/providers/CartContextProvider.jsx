@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { createContext } from 'react';
-import { getCategoria } from '../services/Productos/TipoProducto';
+import { getCategoria } from '../services/productos/ClasificacionProducto';
 
   export const ReelFunContext = createContext();
 
@@ -19,8 +19,7 @@ import { getCategoria } from '../services/Productos/TipoProducto';
             if (cant > producto.stock){
               console.log('Stock no disponible');
               return carritoActual;  
-            }
-            //return [...carritoActual,{...producto,cant}];
+            } 
             return [
                   ...carritoActual,
                   {
@@ -73,9 +72,7 @@ import { getCategoria } from '../services/Productos/TipoProducto';
         0
     );
 
-    const totalItems = carrito.length;
-      //carrito.reduce((itemsAgregados,item) => {itemsAgregados + item.cant},0);
-
+    const totalItems = carrito.length; 
     const eliminarProducto = (idProducto) => {
       setCarrito(carrito => carrito.filter(item => item.id !== idProducto));
     };

@@ -1,5 +1,6 @@
 
 import './App.css'
+import CartConfirmationOrder from './components/Cart/CartConfirmationOrder/CartConfirmationOrder';
 import CartDetailContainer from './components/Cart/CartDetailContainer/CartDetailContainer';
 import NotFoundPage from './components/Error/NotFoundPage';
 import ItemDetailContainer from './components/ItemDetailContainer/ItemDetailContainer';
@@ -12,18 +13,17 @@ function App() {
   return (
     <>      
       <NavbarReelFun   /> 
-      <Routes>
-        {/* si (url ==="?") => retorna <Component>) */} 
-        
+      <Routes>         
         <Route path="/" element={<ItemListContainer />} />
-        
-        {/*Rutas dinamicas para un mismo componente  */}
+                
         <Route path="/categoria/:tipoCat" element={<ItemListContainer/>}></Route>
+        
         <Route path="/producto/detalle/:idProd" element={<ItemDetailContainer/>}></Route>   
 
         <Route path="/carrito"  element={<CartDetailContainer/>}></Route>   
 
-        {/* 404 capturo cualquier ruta no deseada*/}
+        <Route path="/orden-confirmada/:idOrden"  element={<CartConfirmationOrder/>}></Route>   
+        
         <Route path="*" element={<NotFoundPage />} />
 
       </Routes>

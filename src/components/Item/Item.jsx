@@ -4,16 +4,14 @@ import { Link } from 'react-router-dom';
 
 const Item = ({ id,title, description, image, price }) => {
   return (
-    <Card className="h-100 shadow-sm rounded-4">
-      {/* Imagen del producto */}
+    <Card className="h-100 shadow-sm rounded-4">      
       <Card.Img 
           variant="center"  
           src={image}
           alt={title}
           style={{ height: "350px", objectFit: "scale-down" }}
         />
-
-      {/* Breve detalle del producto */}
+      
       <Card.Body>
         <Card.Title className="text-primary ">{title}</Card.Title>
         <Card.Text>{description}</Card.Text> 

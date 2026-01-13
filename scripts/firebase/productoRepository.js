@@ -1,7 +1,7 @@
-import { doc,collection,setDoc,addDoc,getDoc,getDocs,updateDoc,deleteDoc, query, Query, where } from "firebase/firestore";
+import { collection,addDoc } from "firebase/firestore";
   
-import { especificaciones, productos, stock } from "./data.js";
-import { db } from "../../src/services/firebase/conf/firebase-conf.js";
+import { especificaciones, productos, stock } from "./data.js"; 
+import { db } from "../../src/services/firebase/conf/Firebase-conf.js";
 
 
 export function uploadProductos(){   

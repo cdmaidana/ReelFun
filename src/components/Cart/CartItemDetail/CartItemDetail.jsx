@@ -16,8 +16,7 @@ const CartItemDetail = ({ item }) => {
         direction="horizontal"
         gap={3}
         className="align-items-center"
-      >
-        {/* Product title */}
+      >        
         <div className="me-auto">
          <div className="fw-semibold">{item.titulo}</div>  
            
@@ -25,18 +24,15 @@ const CartItemDetail = ({ item }) => {
              ${(item.precio ).toLocaleString()}
           </small>
         </div>
-        
-        {/* Quantity badge */}
+       
         <Badge bg="info">
           x{item.cant}
         </Badge>
-
-        {/* Price */}
+       
         <div className="fw-bold">
           ${(item.precio * item.cant).toLocaleString()}
         </div>
 
-        {/* Remove button */}
         <Button
           variant="outline-danger"
           size="sm"

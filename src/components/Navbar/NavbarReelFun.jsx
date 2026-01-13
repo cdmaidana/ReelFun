@@ -6,29 +6,8 @@ import CartWidget from "./CartWidget/CartWidget";
 import { NavLink } from 'react-router-dom';
 import NavBarBrand from './NavBarBrand';
 import './NavBar.css'; 
-import {   categoriasNavConfig    } from '../../services/Productos/TipoProducto';
-
-/* const NavbarReelFun = () => {
-  return (
-    <Container>
-      <Navbar  bg="light" data-bs-theme="light" fixed="top" expand="lg"> 
-            <NavBarBrand/> 
-            <Nav className="me-auto"> 
-              <Nav.Link>
-                <NavLink className="nav-link-clean" to="/categoria/reels">Reeles22</NavLink>
-              </Nav.Link>
-              <Nav.Link >
-                <NavLink className="nav-link-clean" to="/categoria/canas">Cañas</NavLink>
-              </Nav.Link>
-              <Nav.Link>
-                <NavLink className="nav-link-clean" to="/categoria/accesorios">Accesorios</NavLink> 
-              </Nav.Link>
-            </Nav>  
-            <CartWidget/>           
-      </Navbar>
-    </Container> 
-  );
-}; */
+import {   categoriasNavConfig    } from '../../services/productos/ClasificacionProducto';
+ 
 const NavbarReelFun = () => {
   return ( 
       <Navbar bg="light" fixed="top" expand="lg">

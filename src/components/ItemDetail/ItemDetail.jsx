@@ -1,16 +1,13 @@
 import { useContext, useState } from 'react';
 import { ListGroup,Button,Card, Col,Row, Container, Stack } from 'react-bootstrap';
-import ItemCount from '../ItemCount/ItemCount';
-import { reelFunContext } from '../../providers/CartProvider';
+import ItemCount from '../ItemCount/ItemCount'; 
 import { ReelFunContext } from '../../providers/CartContextProvider';
 import { Link } from 'react-router-dom';
 
  
 const ItemDetail = ({producto, especificaciones =  []}) => {
-    /**unidades del producto a comprar */
     const [cantidad, setCantidad] = useState(0);
-    const [habilitaCompra, setHabilitaCompra] = useState(false);
-    /**stock inicial del producto, harcodeado en 10 por ahora */
+    const [habilitaCompra, setHabilitaCompra] = useState(false);   
     const [stockActual, setStock] = useState(producto.stock); 
 
     const incrementarCantidad = () => {      
@@ -26,13 +23,8 @@ const ItemDetail = ({producto, especificaciones =  []}) => {
         setStock(stockActual + 1);
       }
     }; 
-    
-    //const valorActual = useContext(reelFunContext);
-    const cartContext = useContext(ReelFunContext);
-   /*  const addToCart = () => {(cantidad>0)?
-        {cartContext.agregarProducto(producto,cantidad);setHabilitaCompra(true)}
-        :alert('Ingrese la cantidad que desea agregar.'); 
-      }; */
+        
+    const cartContext = useContext(ReelFunContext);   
     
     const addToCart = () => 
         { if(cantidad>0)
@@ -44,22 +36,18 @@ const ItemDetail = ({producto, especificaciones =  []}) => {
   return (
     <Card >
       <Container>
-        <Row className="g-3">        
-          {/* Columna Izquierda - Producto */}
+        <Row className="g-3">                  
           <Col md={4} className="text-center">
-            {/* imagen del producto */}
             <img 
               src={producto.img} 
               alt={producto.titulo}
               className="img-fluid rounded mb-3"
               style={{ maxHeight: "200px", objectFit: "cover" }}
-            />
-            {/* descripcion del producto */}
+            />            
             <Card.Body>
               <Card.Title>{producto.titulo}</Card.Title>
               <Card.Subtitle className="text-muted">{producto.desc}</Card.Subtitle>
-              <Container>
-              {/* precio */}
+              <Container>              
               <h2 className="text-success my-3">
                 ${producto.precio}
               </h2>
@@ -69,21 +57,15 @@ const ItemDetail = ({producto, especificaciones =  []}) => {
               </p>
               <p> {stockActual > 0 ? (`+${stockActual} disponibles`):('')  }</p>  
               </Container>                
-              <Container className="d-flex justify-content-center mb-3" style={{ width: 160 }}> 
-                {/* spinner cantidad a comprar*/}
+              <Container className="d-flex justify-content-center mb-3" style={{ width: 160 }}>                 
                 <ItemCount
                     cantidad={cantidad}
                     incrementar={incrementarCantidad}
                     decrementar={decrementarCantidad}
                   />                
-              </Container>              
-              {/* Botones de accion para agregar al carrito/comprar */}
+              </Container>                            
               <Stack gap={2} className="col-md-8 mx-auto"> 
-                <Button variant="secondary" onClick={addToCart} disabled={cantidad === 0} >Agregar al Carrito</Button>
-                {/* <Button variant="primary">Comprar</Button> */}
-                {/* <Link to="/carrito">
-                  <Button disabled={!habilitaCompra} variant="primary">Terminar Compra</Button>
-                </Link> */}
+                <Button variant="secondary" onClick={addToCart} disabled={cantidad === 0} >Agregar al Carrito</Button>                
                 {habilitaCompra ? (
                   <Link to="/carrito">
                     <Button variant="primary">
@@ -99,8 +81,7 @@ const ItemDetail = ({producto, especificaciones =  []}) => {
 
             </Card.Body>
           </Col>
-
-          {/* Columna Derecha - Caracteristicas del Producto */}
+          
           <Col md={8}>
             <h5 className="mb-3">Características del Producto</h5>
 

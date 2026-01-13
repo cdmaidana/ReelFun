@@ -3,7 +3,7 @@ import { db } from "../conf/Firebase-conf";
 import { getEspecificacionesByIdProducto } from "./Especificaciones";
 import { getStockByIdProducto } from "./Stock"; 
 import { createProductFromFirestore } from "../../../adapters/ProductoAdapter";
-import { getTiposInCategoria } from "../../productos/TipoProducto";
+import { getTiposInCategoria } from "../../productos/ClasificacionProducto";
  
 export function getAllProductos(){
   const productosCollection = collection(db,"productos");
