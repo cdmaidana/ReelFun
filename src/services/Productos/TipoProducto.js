@@ -8,6 +8,19 @@ export const categoriasMap = {
 export const getCategoria = (tipo) => categoriasMap[tipo] ?? "Sin definir";
 
 
+export function getTiposInCategoria(cat){ 
+  switch (cat) {
+    case "reels":
+      return ["reel"];
+    case "canas":
+      return ["cana"];
+    case "accesorios":
+      return ["anzuelo","plomada"]; 
+    default : return [];
+
+ 
+  } 
+}
 
 export const categoriasNavConfig = [
   {
@@ -30,38 +43,4 @@ export const categoriasNavConfig = [
 export const getCategoriaLabel = (key) => {
   return categoriasNavConfig.find(c => c.key === key)?.label;
 };
-
-/*
-export const navbarCategorias = Array.from(
-  new Set(Object.values(categoriasMap))
-);
-export const categoriasLabels = {
-  reels: "Reels",
-  canas: "Cañas",
-  accesorios: "Accesorios",
-}; 
-
- export const TipoProducto2 = {
-reel : "reel",
-cana : "cana",
-accesorios : "accesorios"
-}
-
-export function getCategoria2(tipoProducto){
-  var cat = ''; 
-  switch (tipoProducto) {
-    case "reel":
-      cat = "reels";
-      break;
-    case "anzuelo":
-      cat = "accesorios";
-      break;
-    case "plomada":
-      cat = "accesorios";
-      break;
-    case "cana":
-      cat = "canas";
-      break; 
-  }
-  return cat;
-} */
+ 
