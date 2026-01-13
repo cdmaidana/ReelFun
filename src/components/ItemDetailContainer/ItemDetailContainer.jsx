@@ -1,8 +1,11 @@
 import  { useEffect, useState } from 'react'
-import { getProdById } from '../../services/Productos/newProductoService'
+//import { getProdById } from '../../services/Productos/newProductoService'
 import ItemDetail from '../ItemDetail/ItemDetail'
 import { useParams } from 'react-router-dom'
-import { Alert, Container } from 'react-bootstrap'
+import { Alert, Container, Spinner } from 'react-bootstrap'
+import { getProductoByIdDoc } from '../../services/firebase/firestore/Productos'
+import { findProductoByIdDoc } from '../../services/Productos/newProductoService'
+import WaitingSpinner from '../WaitingSpinner/WaitingSpinner'
 
 const ItemDetailContainer = () => {
   const [producto, setProducto] = useState(null);
@@ -12,19 +15,33 @@ const ItemDetailContainer = () => {
   const { idProd } = useParams(); 
 
   useEffect(() => {
-    setLoading(true);
-    setError(null);
+     
+      setLoading(true);
+      setError(null);  
+     
 
-    getProdById(idProd)
+    //getProdById(idProd)
+    findProductoByIdDoc(idProd)
       .then(prod => setProducto(prod)) 
-      .catch(error => setError('Ocurrio un error al buscar el Producto.'))
+      .catch(error => setError( error))
       .finally(() => setLoading(false)); 
 
   }, [idProd])
  
+  /* if (loading ) {
+    return ( 
+    <Container className="text-center py-5">
+      <Spinner animation="border" />
+      <p>Cargando producto...</p>
+    </Container>   
+  );
+  } */
   if (loading ) {
-    return (<Container><p>Cargando producto...</p></Container>);
+      return ( 
+        <WaitingSpinner text="Aguarde un momento, procesando información del Producto..." /> 
+      );
   }
+ 
   if (error) {
     console.log('Error al buscar el producto '+error);
     return (<Container><Alert variant="danger">{error}</Alert></Container>);

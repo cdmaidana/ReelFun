@@ -1,4 +1,5 @@
-import { db } from "../conf/firebase-conf";
+
+import { db } from "../conf/Firebase-conf";
 import { collection,getDocs, query,  where } from "firebase/firestore";  
 
 /* export function getEspecificacionesByIdProducto(idProducto) {

@@ -24,7 +24,7 @@ import { getCategoria } from '../services/Productos/TipoProducto';
             return [
                   ...carritoActual,
                   {
-                    id: producto.id,
+                    id: producto.idProducto,
                     tipo:producto.tipo,
                     titulo: producto.titulo,
                     precio: producto.precio,

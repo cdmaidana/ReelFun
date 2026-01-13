@@ -25,9 +25,9 @@
 Proyecto con enfoque didáctico orientado a la aplicación práctica de React JS y su integración con servicios externos como Firebase. 
 En este contexto se implementa un **Ecommerce con React JS**, realizada como práctica final del **Curso de React JS en la plataforma CoderHouse**.
 
-La aplicación representa la venta de productos de **Pesca**, permitiendo a los usuarios navegar por categorías, visualizar productos, consultar sus detalles y agregarlos a un carrito de compras. A medida que se seleccionan productos, se conforma un carrito que puede visualizarse desde el **NavBar** o desde la opción de **Finalizar compra**.
+La aplicación representa la venta de productos de **Pesca**, permitiendo a los usuarios navegar por categorías, visualizar productos, consultar sus detalles y agregarlos a un carrito de compras. A medida que se seleccionan productos, se conforma un carrito que puede visualizarse desde el **NavBar** o desde la opción de **Terminar compra** desde el detalle de un Articulo.
 
-El objetivo principal del proyecto es aplicar y consolidar conceptos fundamentales de React JS como componentes, estados, contextos, hooks, ruteo y consumo de servicios externos.
+El objetivo principal del proyecto es aplicar conceptos vistos de React JS como componentes, estados, contextos, hooks, ruteo y consumo de servicios externos.
 
 ---
 
@@ -211,9 +211,9 @@ npm run dev
 
 ---
 
-## Component Tree Diagram (React)
+## Diagrama simplificado del árbol de componentes
 
-A continuación se presenta un **diagrama simplificado del árbol de componentes** de la aplicación React, con el objetivo de ilustrar la organización general y la responsabilidad de cada componente.
+A continuación se presenta un **árbol de componentes** de la aplicación React, con el objetivo de ilustrar la organización general y la responsabilidad de cada componente.
 
 ```mermaid
 graph TD
@@ -239,10 +239,10 @@ graph TD
 ### Descripción General
 
 - **App**: componente raíz de la aplicación.
-- **Navbar**: navegación principal y acceso al carrito.
+- **Navbar**: navegación principal y acceso al carrito. 
 - **Router**: manejo de rutas y vistas.
 - **ItemListContainer**: carga y visualización de productos por categoría.
-- **ItemDetailContainer**: visualización del detalle de un producto.
+- **ItemDetailContainer**: visualización del detalle de un producto. Incluye opciones para agregar unidades al carrito y finalizar compra.
 - **CartDetailContainer**: gestión y visualización del carrito.
 - **CartWidget**: acceso rápido al carrito desde el NavBar.
 

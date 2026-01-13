@@ -1,5 +1,5 @@
 import { productos,especificaciones, stock } from './newProductosDB'; 
-import { getAllProductos, getProductosByCat } from '../firebase/firestore/productos';
+import { getAllProductos, getProductoByIdDoc, getProductosByCat } from '../firebase/firestore/Productos';
 import { getCategoria } from './TipoProducto';
 
 /* export function loadProductos(){
@@ -16,7 +16,12 @@ export function loadProductos(){
     return getAllProductos();
 }
 
-export function getProdById(id) {
+export function findProductoByIdDoc(idDoc){
+    return getProductoByIdDoc(idDoc ) ;
+
+}
+
+/* export function getProdById(id) {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       const producto = productos.find(p => p.id === Number(id));
@@ -44,7 +49,7 @@ export function getProdById(id) {
       });
     }, 2000);
   });
-}
+} */
 
 /* export function filtrarProductosByCat(cat){
     return new Promise((resolved,reject)=>{ 
@@ -66,5 +71,5 @@ export function filtrarProductosByCat(cat){
 /* export const filtrarProductos = 
     (productos, tipo)  => productos.filter(prod => !tipo || prod.tipo === tipo); */
 
-export const getProductoById = 
-    (productos, id)  => productos.find(prod =>  prod.id === id);
+/* export const getProductoById = 
+    (productos, id)  => productos.find(prod =>  prod.id === id); */

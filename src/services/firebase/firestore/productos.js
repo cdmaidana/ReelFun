@@ -1,8 +1,8 @@
 import { doc,collection, getDoc,getDocs, query, Query, where } from "firebase/firestore"; 
-import { db } from "../conf/firebase-conf";  
-import { getEspecificacionesByIdProducto } from "./especificaciones";
-import { getStockByIdProducto } from "./stock"; 
-import { createProductFromFirestore } from "../../../adapters/productoAdapter";
+import { db } from "../conf/Firebase-conf";  
+import { getEspecificacionesByIdProducto } from "./Especificaciones";
+import { getStockByIdProducto } from "./Stock"; 
+import { createProductFromFirestore } from "../../../adapters/ProductoAdapter";
 import { getTiposInCategoria } from "../../productos/TipoProducto";
  
 export function getAllProductos(){
@@ -18,7 +18,7 @@ export function getAllProductos(){
 
 export async function getProductoByIdDoc(idDoc ) {
   try { 
-
+    console.log('buscar producto by id documento:'+idDoc)
     const prodRef = doc(db, "productos", String(idDoc));
     const prodSnap = await getDoc(prodRef);
 
@@ -49,28 +49,26 @@ export async function getProductoByIdDoc(idDoc ) {
     throw err;
   }
 }
+ 
 
+export function getProductosByCat(cat) {
+  const prodRef = collection(db, "productos");
+  const arrayTiposByCategoria = getTiposInCategoria(cat);
 
-export   function getProdByTipo(tipo){
-        const prodRef = collection(db, "productos");
-        return  getDocs(query(prodRef, where("tipo", "==", tipo))) 
-                    .then(prodsSnaps => {
-                            const productos = [];
-                            prodsSnaps.forEach(prod => { productos.push(prod.data())}); 
-                            return productos;
-                        })
-                    .catch(err => {console.log(err)})  
-}
+  if (arrayTiposByCategoria.length === 0) {
+    return Promise.resolve([]);  
+  }
 
-export function getProductosByCat(cat){
-    const prodRef = collection(db, "productos");
-    const tiposByCategoria = getTiposInCategoria(cat);
-        return  getDocs(query(prodRef, where("tipo", "in", tiposByCategoria))) 
-                    .then(prodsSnaps => {
-                            const productos = [];
-                            prodsSnaps.forEach(prod => { productos.push(prod.data())}); 
-                            return productos;
-                        })
-                    .catch(err => {console.log(err)})   
+  return getDocs(
+            query(prodRef, where("tipo", "in", arrayTiposByCategoria)))
+            .then(prodsSnaps => {
+              return prodsSnaps.docs.map(doc =>
+                createProductFromFirestore(doc)
+              );
+            })
+            .catch(err => {
+              console.error(err);
+              return [];
+            });
 }
   

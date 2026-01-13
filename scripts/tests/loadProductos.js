@@ -1,6 +1,9 @@
-import { getEspecificacionesByIdProducto } from "../services/firebase/firestore/especificaciones";
-import { filtrarProductosByCat, getProductoByIdDoc,  loadProductos } from "../services/firebase/firestore/productos";
-import { getStockByIdProducto } from "../services/firebase/firestore/stock";
+//import { getEspecificacionesByIdProducto } from "../services/firebase/firestore/especificaciones.js";
+import { getEspecificacionesByIdProducto } from '../../src/services/firebase/firestore/Especificaciones.js';
+import { getStockByIdProducto } from '../../src/services/firebase/firestore/Stock.js';
+import { loadProductos } from '../../src/services/Productos/newProductoService.js';
+//import { filtrarProductosByCat, getProductoByIdDoc,  loadProductos } from "../services/firebase/firestore/productos";
+//import { getStockByIdProducto } from "../services/firebase/firestore/stock";
 
 console.log('Ini db productos'); 
 //uploadProductos();

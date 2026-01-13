@@ -79,7 +79,7 @@ const ItemDetail = ({producto, especificaciones =  []}) => {
               </Container>              
               {/* Botones de accion para agregar al carrito/comprar */}
               <Stack gap={2} className="col-md-8 mx-auto"> 
-                <Button variant="secondary" onClick={addToCart} >Agregar al Carrito</Button>
+                <Button variant="secondary" onClick={addToCart} disabled={cantidad === 0} >Agregar al Carrito</Button>
                 {/* <Button variant="primary">Comprar</Button> */}
                 {/* <Link to="/carrito">
                   <Button disabled={!habilitaCompra} variant="primary">Terminar Compra</Button>

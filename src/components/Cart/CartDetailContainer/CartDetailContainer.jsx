@@ -4,11 +4,17 @@ import { ReelFunContext } from '../../../providers/CartContextProvider';
 import CartGroupDetail from '../CartGroupDetail/CartGroupDetail';
 import CartEmpty from '../CartEmpty/CartEmpty';
 import { Link } from 'react-router-dom';
+import { useUser } from '../../../providers/UserContextProvider';
+import { serverTimestamp } from 'firebase/firestore';
+import { createOrdenCompra } from '../../../services/firebase/firestore/OrdenesCompra';
 
 const CartDetailContainer = () => {
   const { carrito, precioTotal, limpiarCarrito, carritoAgrupado } =
     useContext(ReelFunContext);
 
+  const { user } = useUser();
+  console.log(user);
+  console.log(carrito);
   if (carrito.length === 0) {
     return <CartEmpty />;
   }
@@ -18,11 +24,35 @@ const CartDetailContainer = () => {
     limpiarCarrito();
   }; */
 
-   const handleSubmit = (event) => {
+   const handleSubmit = async (event) => {
     event.preventDefault(); 
 
-    alert('Pago en proceso, página en construcción');
-    limpiarCarrito();
+     try {
+      const ordenCompra = {
+        cliente: user,
+        items: carrito.map(item => ({
+          idProducto: item.id,
+          titulo: item.titulo,
+          precio: item.precio,
+          cantidad: item.cant
+        })),
+        total: precioTotal,
+        estadoOrden: "generada",
+        fechaCreacion: serverTimestamp()
+      };
+      
+      const ordenCompraIdDoc = await createOrdenCompra(ordenCompra);
+
+      alert(`Se registro la orden de Compra ${ordenCompraIdDoc}, se redireccionará para el Pago , página en construcción`);
+
+    } catch (error) {
+      console.error("Error creating order", error);
+    } finally {
+      limpiarCarrito();
+    }
+    
+    
+    
   };
 
   return (
@@ -53,7 +83,7 @@ const CartDetailContainer = () => {
                 <Button variant="primary">Seguir viendo prouctos</Button>
               </Link>
               <Button variant="success" type="submit" /* onClick={handleComprar} */>
-                Terminar Compra iniciar Pago
+                Finalizar Compra iniciar Pago
               </Button>
             </Stack>
           </Stack> 

@@ -3,6 +3,7 @@ import { Container, Alert,Spinner } from "react-bootstrap";
 import ItemList from "../ItemList/ItemList";
 import { loadProductos,filtrarProductosByCat } from "../../services/Productos/newProductoService";
 import { useParams } from 'react-router-dom';
+import WaitingSpinner from '../WaitingSpinner/WaitingSpinner';
 
 const ItemListContainer = () => {
   const [productos, setProductos] = useState([]);
@@ -16,8 +17,10 @@ const ItemListContainer = () => {
   
   /**Inicializacion lista de productos */
   useEffect(() => {
-    setLoading(true);
-    setError(null);
+    if (productos?.length === 0) {
+      setLoading(true);
+      setError(null);    
+    }
     
     const loader = tipoCat=== "home"
     ? loadProductos()
@@ -30,10 +33,19 @@ const ItemListContainer = () => {
 
   }, [tipoCat]);
   
-  if (loading ) {
-    return (<Container className="d-flex justify-content-center align-items-center" style={{ height: "70vh" }}>
+  /* if (loading ) {
+    return (    
+    <Container className="text-center py-5">
+      <Spinner animation="border" />
       <p>Cargando productos...</p>
-    </Container>);
+    </Container>
+    );
+  }
+ */
+  if (loading ) {
+    return (    
+      <WaitingSpinner text="Aguarde un momento, cargando productos..." /> 
+    );
   }
 
   if (error) {
@@ -41,7 +53,7 @@ const ItemListContainer = () => {
     return (<Container><Alert variant="danger">{error}</Alert></Container>);
   }
 
-  if (productos.length>0){
+  if (productos?.length>0){
     return (
       <Container className="my-4 mx-4 ">
         <ItemList productos={productos} />
