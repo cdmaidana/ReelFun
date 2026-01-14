@@ -1,5 +1,5 @@
 import { doc,collection, getDoc,getDocs, query, Query, where } from "firebase/firestore"; 
-import { db } from "../conf/Firebase-conf";  
+import { db } from "../conf/firebase-conf";  
 import { getEspecificacionesByIdProducto } from "./especificaciones";
 import { getStockByIdProducto } from "./stock"; 
 import { createProductFromFirestore } from "../../../adapters/productoAdapter";
