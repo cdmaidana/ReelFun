@@ -16,19 +16,19 @@ Nombre del Proyecto: ReelFun
   - [Stock de un Producto](#stock-de-un-producto)
   - [Usuario](#usuario)
 - [Diagrama de Entidades (DER)](#diagrama-de-entidades-der)
-- [Dependencias del Proyecto](#dependencias-del-proyecto)
+- [Diagrama simplificado del árbol de componentes](#diagrama-simplificado-del-%C3%A1rbol-de-componentes)
 - [Flujo de Navegación y Uso de la Aplicación](#flujo-de-navegación-y-uso-de-la-aplicación)
-  - [Navegación Principal–NavBar](#navegación-principal–navbar) 	
+  - [Navegación Principal–NavBar](#navegación-principal–navbar)     
   - [Detalle de Producto](#detalle-de-producto)
   - [Visualización del Carrito y Confirmación de Compra](#visualización-del-carrito-y-confirmación-de-compra)
   - [Visualización de la confirmación exitosa del carrito](#visualización-de-la-confirmación-exitosa-del-carrito)
+- [Dependencias del Proyecto](#dependencias-del-proyecto) 
 - [Instalación](#instalación)
   - [Configuración General – Base de Datos](#configuración-general--base-de-datos)
   - [Creación del Proyecto en Firebase / Firestore](#creación-del-proyecto-en-firebase--firestore)
   - [Inicialización de Firestore Database](#inicialización-de-firestore-database)
 - [Archivos Configuración](#archivos-configuración)
 - [Mejoras y Próximas Iteraciones](#mejoras-y-próximas-iteraciones)
-- [Diagrama simplificado del árbol de componentes](#diagrama-simplificado-del-árbol-de-componentes)
 - [Resumen de Aplicaciones Técnicas](#resumen-de-aplicaciones-técnicas)
 
 ---
@@ -61,6 +61,7 @@ El alcance funcional de la versión actual incluye:
 
 > ⚠️ La funcionalidad de pago **no se encuentra implementada** en esta versión.
 > (*) Los datos del usuario son genericos y se inicializan en un contexto el cual puede ser utilizado en futuras integraciones.
+
 ---
 
 ## Fuera de Alcance
@@ -71,8 +72,8 @@ Las siguientes funcionalidades no forman parte del desarrollo actual:
 - Gestion del stock por compras realizadas.
 - Gestión de usuarios o autenticación.
 
-
 ---
+
 ## Descripción Dominio de la Aplicación
 
 ### Clasificación de Productos
@@ -109,17 +110,21 @@ La configuración de estas clasificaciones puede consultar en la seccion
 - **imagen**: imagen asociada.
 
 ## Especificaciones de un Producto
+
 Cada producto tiene un lista de caracteriscticas, esta informacion se gestiona en otra coleccion y referenciada por el ID del producto.
+
 - **especificaciones**: lista dinámica de pares nombre–valor.
 
 > Lo recomendable es que esta coleccion este referencia por el id del documento del producto y no por un atributo. En este caso (como no tenemos un ABM para los datos) solo a modo didactico lo relacionamos al id del producto.
 
 ## Stock de un Producto
+
 Cada producto tiene un stock, gestionado en la coleccion de Stock referenciado por el id del producto.
 
 > Aplica la misma apreciación del id que las Especificaciones.
 
 ## Usuario
+
 Identifica el usuario loggeado al sistema, se implementa un Context Api para manejar un usuario genérico. De esta manera se permite simular el flujo completo de una orden sin necesidad de un sistema de autenticación, dejando el diseño preparado para futuras integraciones.
 
 ---
@@ -171,46 +176,53 @@ erDiagram
 
     ORDENDECOMPRA ||--|| USUARIO : tiene
     ORDENDECOMPRA ||--o{ ORDENITEMS : posee
-
 ```
 
 ---
 
- 
+## Diagrama simplificado del árbol de componentes
 
-## Dependencias del Proyecto
-El proyecto utiliza las siguientes dependencias principales, organizadas por responsabilidad dentro de la aplicación:
+A continuación se presenta un **árbol de componentes** de la aplicación React, con el objetivo de ilustrar la organización general y la responsabilidad de cada componente.
 
-* Core de React
+```mermaid
+graph TD
+    App --> Navbar
+    App --> Router
 
-| Dependencia | Versión | Descripción                                                                              |
-| ----------- | ------- | ---------------------------------------------------------------------------------------- |
-| react       | ^19.1.1 | Librería principal para la construcción de interfaces de usuario basadas en componentes. |
-| react-dom   | ^19.1.1 | Permite renderizar la aplicación React en el DOM del navegador.                          |
+    Router --> ItemListContainer
+    Router --> ItemDetailContainer
+    Router --> CartDetailContainer
+    Router --> CartConfirmationOrder
 
-* Navegación y Ruteo
+    Navbar --> CartWidget
 
-| Dependencia      | Versión | Descripción                                                 |
-| ---------------- | ------- | ----------------------------------------------------------- |
-| react-router-dom | ^7.9.6  | Manejo de rutas y navegación entre vistas de la aplicación. |
+    ItemListContainer --> ItemList
+    ItemList --> ItemCard
 
-* UI y Estilos
+    ItemDetailContainer --> ItemDetail
+    ItemDetail --> ItemCount
 
-| Dependencia     | Versión  | Descripción                                                                             |
-| --------------- | -------- | --------------------------------------------------------------------------------------- |
-| bootstrap       | ^5.3.8   | Framework CSS utilizado como base de estilos.                                           |
-| react-bootstrap | ^2.10.10 | Componentes Bootstrap adaptados a React, utilizados para acelerar el desarrollo de los componentes. |
-| react-icons     | ^5.5.0   | Biblioteca de íconos SVG utilizada principalmente en el NavBar y el carrito.            |
+    CartDetailContainer --> CartGroupDetail
+    CartGroupDetail --> CartItem
+```
 
-* Persistencia y Servicios Externos
+### Descripción General
 
-| Dependencia | Versión | Descripción                                                                              |
-| ----------- | ------- | ---------------------------------------------------------------------------------------- |
-| firebase    | ^12.7.0 | SDK de Firebase utilizado para la conexión con Firestore Database y la gestión de datos. |
+- **App**: componente raíz de la aplicación.
+- **Navbar**: navegación principal y acceso al carrito.
+- **Router**: manejo de rutas y vistas.
+- **ItemListContainer**: carga y visualización de productos por categoría.
+- **ItemDetailContainer**: visualización del detalle de un producto. Incluye opciones para agregar unidades al carrito y finalizar compra.
+- **CartDetailContainer**: Gestion, Visualización y Confirmación del carrito.
+- **CartConfirmationOrder**: Visualizacion del nro.de orden generado al confirmar el carrito.
+- **CartWidget**: acceso rápido al carrito desde el NavBar.
 
 ---
 
+
+
 ## Flujo de Navegación y Uso de la Aplicación
+
 Breve detalle visual del flujo principal de uso del aplicativo, desde la navegación inicial hasta la confirmación de la compra en el carrito.
 
 ### Navegación Principal – NavBar
@@ -222,9 +234,10 @@ Funcionalidades principales:
 * Acceso a las categorías de productos (Reeles, Cañas, Accesorios).
 
 * Visualización del CartWidget con la cantidad de ítems agregados. 
-    * También responde como acceso rápido al carrito para Finalizar la compra.
-    * Solo es visible si existe al menos  un producto en el carrito.
-    * Se actualiza dinámicamente al agregar o eliminar productos desde la visualización de productos.
+  
+  * También responde como acceso rápido al carrito para Finalizar la compra.
+  * Solo es visible si existe al menos  un producto en el carrito.
+  * Se actualiza dinámicamente al agregar o eliminar productos desde la visualización de productos.
 
 * Accediendo al Brand ReelFun se acceden a la lista completa de Productos sin filtro sobre la categoría.
 
@@ -237,7 +250,7 @@ Desde el listado de productos, el usuario puede acceder al detalle de un product
 ![Detalle de Producto - itemDetail](./public/img/itemList.png)
 
 Desde este componente se visualiza la siguiente información: 
-    
+
 * Imagen del producto.
 * Título y descripción.
 * Precio.
@@ -247,7 +260,6 @@ Desde este componente se visualiza la siguiente información:
 * Acciónes para Agregar al carrito o Finalizar compra.
 
 ![Detalle de Producto - itemDetail](./public/img/itemDetail.png)
-
 
 ### Visualización del Carrito y Confirmación de Compra
 
@@ -262,16 +274,56 @@ Funcionalidades principales:
 
 ![Detalle carrito - cart](./public/img/detalleCarrito.png)
 
-### Visualización de la confirmación exitosa del carrito. 
+### Visualización de la confirmación exitosa del carrito.
 
-Al finalizar la compra se conforma y genera en la base una Orden de Compra con los datos del usuario y el carrito. Si esta operacion es exitosa se informa al usuario el nro.de orden generada.
+Al finalizar la compra se conforma y genera en la base una Orden de Compra con los datos del usuario y el carrito. Si esta operación es exitosa se informa al usuario el nro.de orden generada.
 
 ![Detalle carrito - cart](./public/img/notificacionOrdenConfirmada.png)
 
-> En caso que la confirmacion de la orden falle, se emitira un Alerta informando la situacion:
-![Detalle carrito - cart](./public/img/notificacionOrdenNOConfirmada.png)
+> En caso que la confirmación de la orden falle, se emitirá un Alerta informando la situación:
+> ![Detalle carrito - cart](./public/img/notificacionOrdenNOConfirmada.png)
+
+
 
 ---
+
+## ## Dependencias del Proyecto
+
+El proyecto utiliza las siguientes dependencias principales, organizadas por responsabilidad dentro de la aplicación:
+
+- Core de React
+
+| Dependencia | Versión | Descripción                                                                              |
+| ----------- | ------- | ---------------------------------------------------------------------------------------- |
+| react       | ^19.1.1 | Librería principal para la construcción de interfaces de usuario basadas en componentes. |
+| react-dom   | ^19.1.1 | Permite renderizar la aplicación React en el DOM del navegador.                          |
+
+- Navegación y Ruteo
+
+| Dependencia      | Versión | Descripción                                                 |
+| ---------------- | ------- | ----------------------------------------------------------- |
+| react-router-dom | ^7.9.6  | Manejo de rutas y navegación entre vistas de la aplicación. |
+
+- UI y Estilos
+
+| Dependencia     | Versión  | Descripción                                                                                         |
+| --------------- | -------- | --------------------------------------------------------------------------------------------------- |
+| bootstrap       | ^5.3.8   | Framework CSS utilizado como base de estilos.                                                       |
+| react-bootstrap | ^2.10.10 | Componentes Bootstrap adaptados a React, utilizados para acelerar el desarrollo de los componentes. |
+| react-icons     | ^5.5.0   | Biblioteca de íconos SVG utilizada principalmente en el NavBar y el carrito.                        |
+
+- Persistencia y Servicios Externos
+
+| Dependencia | Versión | Descripción                                                                              |
+| ----------- | ------- | ---------------------------------------------------------------------------------------- |
+| firebase    | ^12.7.0 | SDK de Firebase utilizado para la conexión con Firestore Database y la gestión de datos. |
+
+---
+
+
+
+
+
 ## Instalación
 
 1. Clonar el repositorio:
@@ -315,8 +367,8 @@ src/services/firebase/conf/firebase-conf.js
 7. Habilitar **Firestore Database** desde la consola de Firebase (modo prueba recomendado para uso académico).
 
 8. Ejecutar desde la raíz del proyecto:
-
-    Se define un conjunto de datos para la configuracion inicial de las colecciones de Productos, Stock y Especificaciones. Para mas detalles ver el archivo .\scripts\firebase\data.js 
+   
+    Se define un conjunto de datos para la configuración inicial de las colecciones de Productos, Stock y Especificaciones. Para mas detalles ver el archivo .\scripts\firebase\data.js 
 
 ```bash
 node ./scripts/firebase/uploadDataInFirestore.js
@@ -329,7 +381,7 @@ node ./scripts/firebase/uploadDataInFirestore.js
 > - **Stock**
 
 9. Ejecutar el proyecto:
-
+   
     Inicializadas las colecciones estamos en condiciones de ejecutar nuestro proyecto.
 
 ```bash
@@ -351,45 +403,6 @@ npm run dev
 - Mejora de UI/UX.
 - Paginación de productos.
 - Integración con pagos.
-
----
-
-## Diagrama simplificado del árbol de componentes
-
-A continuación se presenta un **árbol de componentes** de la aplicación React, con el objetivo de ilustrar la organización general y la responsabilidad de cada componente.
-
-```mermaid
-graph TD
-    App --> Navbar
-    App --> Router
-
-    Router --> ItemListContainer
-    Router --> ItemDetailContainer
-    Router --> CartDetailContainer
-    Router --> CartConfirmationOrder
-
-    Navbar --> CartWidget
-
-    ItemListContainer --> ItemList
-    ItemList --> ItemCard
-
-    ItemDetailContainer --> ItemDetail
-    ItemDetail --> ItemCount
-
-    CartDetailContainer --> CartGroupDetail
-    CartGroupDetail --> CartItem
-```
-
-### Descripción General
-
-- **App**: componente raíz de la aplicación.
-- **Navbar**: navegación principal y acceso al carrito. 
-- **Router**: manejo de rutas y vistas.
-- **ItemListContainer**: carga y visualización de productos por categoría.
-- **ItemDetailContainer**: visualización del detalle de un producto. Incluye opciones para agregar unidades al carrito y finalizar compra.
-- **CartDetailContainer**:  Gestion, Visualización y Confirmación del carrito.
-- **CartConfirmationOrder**: Visualizacion del nro.de orden generado al confirmar el carrito.
-- **CartWidget**: acceso rápido al carrito desde el NavBar.
 
 ---
 
@@ -415,7 +428,6 @@ Teniendo en cuenta el alcance y objetivos del curso, se implemento el proyecto t
 - Se definió una relación lógica 1:1 entre Producto y Stock para facilitar futuras extensiones, por ejemplo consulta a un servicio externo para obtencion del stock.
 - La relación Producto–Especificaciones se modeló como 1:N para adaptarse a productos con atributos variables.
 
-
 ### Estilos y UI
 
 - Se utilizó **react-bootstrap** para acelerar el desarrollo visual y mantener consistencia en los componentes.
@@ -425,8 +437,6 @@ Teniendo en cuenta el alcance y objetivos del curso, se implemento el proyecto t
 ### Bundler y Herramientas
 
 - El curso propone **Vite** por su rapidez en el entorno de desarrollo y configuración simplificada.
-
----
 
 ---
 
