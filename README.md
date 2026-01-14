@@ -443,7 +443,7 @@ Teniendo en cuenta el alcance y objetivos del curso, se implemento el proyecto t
 
 ### Deploy
 
-Se puede acceder al aplicativo desde este [Link](https://dynamic-semolina-b3f51c.netlify.app/categoria/home)
+Se puede acceder al aplicativo desde este [Link](https://dynamic-semolina-b3f51c.netlify.app/)
 
 ---
 
