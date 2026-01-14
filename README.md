@@ -1,22 +1,33 @@
 # Proyecto Ecommerce – React JS
 
-## Índice
+## Tabla de Contenidos
 
 - [Introducción](#introducción)
 - [Alcance del Proyecto](#alcance-del-proyecto)
 - [Fuera de Alcance](#fuera-de-alcance)
-- [Clasificación de Productos](#clasificación-de-productos)
+- [Descripción Dominio de la Aplicación](#descripción-dominio-de-la-aplicación)
+  - [Clasificación de Productos](#clasificación-de-productos)
   - [Categorías](#categorías)
-  - [Tipos de Producto](#tipos-de-producto)
-- [Estructura de un Producto](#estructura-de-un-producto)
+  - [Tipos de Producto por Categoría](#tipos-de-producto-por-categoría)
+  - [Estructura de un Producto](#estructura-de-un-producto)
+  - [Especificaciones de un Producto](#especificaciones-de-un-producto)
+  - [Stock de un Producto](#stock-de-un-producto)
+  - [Usuario](#usuario)
 - [Diagrama de Entidades (DER)](#diagrama-de-entidades-der)
 - [Dependencias del Proyecto](#dependencias-del-proyecto)
+- [Flujo de Navegación y Uso de la Aplicación](#flujo-de-navegación-y-uso-de-la-aplicación)
+  - [Navegación Principal–NavBar](#navegación-principal–navbar) 	
+  - [Detalle de Producto](#detalle-de-producto)
+  - [Visualización del Carrito y Confirmación de Compra](#visualización-del-carrito-y-confirmación-de-compra)
+  - [Visualización de la confirmación exitosa del carrito](#visualización-de-la-confirmación-exitosa-del-carrito)
 - [Instalación](#instalación)
   - [Configuración General – Base de Datos](#configuración-general--base-de-datos)
   - [Creación del Proyecto en Firebase / Firestore](#creación-del-proyecto-en-firebase--firestore)
   - [Inicialización de Firestore Database](#inicialización-de-firestore-database)
-- [Archivos de Conexión y Configuración](#archivos-de-conexión-y-configuración)
-- [Mejoras y Próximas Iteraciones](#mejoras-y-próximas-iteraciones) 
+- [Archivos Configuración](#archivos-configuración)
+- [Mejoras y Próximas Iteraciones](#mejoras-y-próximas-iteraciones)
+- [Diagrama simplificado del árbol de componentes](#diagrama-simplificado-del-árbol-de-componentes)
+- [Resumen de Aplicaciones Técnicas](#resumen-de-aplicaciones-técnicas)
 
 ---
 
@@ -60,10 +71,13 @@ Las siguientes funcionalidades no forman parte del desarrollo actual:
 
 
 ---
+## Descripción Dominio de la Aplicación
 
-## Clasificación de Productos
+### Clasificación de Productos
 
 ### Categorías
+
+Las categorias se utilizan para agrupar un conjunto de tipos de productos, estos tipos estan asociados a cada producto.
 
 - **Reeles**
 - **Cañas**
@@ -96,8 +110,12 @@ La configuración de estas clasificaciones puede consultar en la seccion
 Cada producto tiene un lista de caracteriscticas, esta informacion se gestiona en otra coleccion y referenciada por el ID del producto.
 - **especificaciones**: lista dinámica de pares nombre–valor.
 
+> Lo recomendable es que esta coleccion este referencia por el id del documento del producto y no por un atributo. En este caso (como no tenemos un ABM para los datos) solo a modo didactico lo relacionamos al id del producto.
+
 ## Stock de un Producto
 Cada producto tiene un stock, gestionado en la coleccion de Stock referenciado por el id del producto.
+
+> Aplica la misma apreciación del id que las Especificaciones.
 
 ## Usuario
 Identifica el usuario loggeado al sistema, se implementa un Context Api para manejar un usuario genérico. De esta manera se permite simular el flujo completo de una orden sin necesidad de un sistema de autenticación, dejando el diseño preparado para futuras integraciones.
@@ -190,6 +208,68 @@ El proyecto utiliza las siguientes dependencias principales, organizadas por res
 
 ---
 
+## Flujo de Navegación y Uso de la Aplicación
+Breve detalle visual del flujo principal de uso del aplicativo, desde la navegación inicial hasta la confirmación de la compra en el carrito.
+
+### Navegación Principal – NavBar
+
+El NavBar es el punto central de navegación de la aplicación. Permite al usuario acceder rápidamente a las categorías de productos y visualizar el estado del carrito.
+
+Funcionalidades principales:
+
+* Acceso a las categorías de productos (Reeles, Cañas, Accesorios).
+
+* Visualización del CartWidget con la cantidad de ítems agregados. 
+    * También responde como acceso rápido al carrito para Finalizar la compra.
+    * Solo es visible si existe al menos  un producto en el carrito.
+    * Se actualiza dinámicamente al agregar o eliminar productos desde la visualización de productos.
+
+* Accediendo al Brand ReelFun se acceden a la lista completa de Productos sin filtro sobre la categoría.
+
+![NavBar - Navegación principal](./public/img/navbar.png)
+
+### Detalle de Producto
+
+Desde el listado de productos, el usuario puede acceder al detalle de un producto, desde el Boton "Ver mas detalles.." donde se muestra la información completa del artículo seleccionado.
+
+![Detalle de Producto - itemDetail](./public/img/itemList.png)
+
+Desde este componente se visualiza la siguiente información: 
+    
+* Imagen del producto.
+* Título y descripción.
+* Precio.
+* Especificaciones dinámicas.
+* Unidades disponibles
+* Selector de cantidad para agregar a la compra.
+* Acciónes para Agregar al carrito o Finalizar compra.
+
+![Detalle de Producto - itemDetail](./public/img/itemDetail.png)
+
+
+### Visualización del Carrito y Confirmación de Compra
+
+El carrito de compras permite revisar los productos seleccionados antes de finalizar la compra.
+
+Funcionalidades principales:
+
+* Visualización de productos agrupados por categoría. 
+* Eliminación de ítems o eliminar carrito completo.
+* Confirmación del carrito.
+* Seguir comprando
+
+![Detalle carrito - cart](./public/img/detalleCarrito.png)
+
+### Visualización de la confirmación exitosa del carrito. 
+
+Al finalizar la compra se conforma y genera en la base una Orden de Compra con los datos del usuario y el carrito. Si esta operacion es exitosa se informa al usuario el nro.de orden generada.
+
+![Detalle carrito - cart](./public/img/notificacionOrdenConfirmada.png)
+
+> En caso que la confirmacion de la orden falle, se emitira un Alerta informando la situacion:
+![Detalle carrito - cart](./public/img/notificacionOrdenNOConfirmada.png)
+
+---
 ## Instalación
 
 1. Clonar el repositorio:
@@ -234,6 +314,8 @@ src/services/firebase/conf/firebase-conf.js
 
 8. Ejecutar desde la raíz del proyecto:
 
+    Se define un conjunto de datos para la configuracion inicial de las colecciones de Productos, Stock y Especificaciones. Para mas detalles ver el archivo .\scripts\firebase\data.js 
+
 ```bash
 node ./scripts/firebase/uploadDataInFirestore.js
 ```
@@ -245,6 +327,8 @@ node ./scripts/firebase/uploadDataInFirestore.js
 > - **Stock**
 
 9. Ejecutar el proyecto:
+
+    Inicializadas las colecciones estamos en condiciones de ejecutar nuestro proyecto.
 
 ```bash
 npm run dev
