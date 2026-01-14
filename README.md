@@ -30,6 +30,7 @@ Nombre del Proyecto: ReelFun
 - [Archivos Configuración](#archivos-configuración)
 - [Mejoras y Próximas Iteraciones](#mejoras-y-próximas-iteraciones)
 - [Resumen de Aplicaciones Técnicas](#resumen-de-aplicaciones-técnicas)
+- [Deploy](#deploy)
 
 ---
 
@@ -437,6 +438,12 @@ Teniendo en cuenta el alcance y objetivos del curso, se implemento el proyecto t
 ### Bundler y Herramientas
 
 - El curso propone **Vite** por su rapidez en el entorno de desarrollo y configuración simplificada.
+
+---
+
+### Deploy
+
+Se puede acceder al aplicativo desde este [Link](https://dynamic-semolina-b3f51c.netlify.app/categoria/home)
 
 ---
 
