@@ -3,7 +3,7 @@ import ItemDetail from '../ItemDetail/ItemDetail'
 import { useParams } from 'react-router-dom'
 import { Alert, Container, Spinner } from 'react-bootstrap' 
 import WaitingSpinner from '../WaitingSpinner/WaitingSpinner' 
-import { findProductoByIdDoc } from '../../services/productos/ProductoService'
+import { findProductoByIdDoc } from '../../services/Productos/ProductoService'
 
 const ItemDetailContainer = () => {
   const [producto, setProducto] = useState(null);
