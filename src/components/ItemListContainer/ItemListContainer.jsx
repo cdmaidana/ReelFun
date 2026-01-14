@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Container, Alert } from "react-bootstrap";
 import ItemList from "../ItemList/ItemList";
-import { loadProductos,filtrarProductosByCat } from "../../services/productos/ProductoService";
+import { loadProductos,filtrarProductosByCat } from "../../services/productos/ProductoService.js";
 import { useParams } from 'react-router-dom';
 import WaitingSpinner from '../WaitingSpinner/WaitingSpinner';
 
