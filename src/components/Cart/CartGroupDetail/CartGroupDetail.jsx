@@ -1,6 +1,6 @@
 import { Card, ListGroup, Badge } from 'react-bootstrap';
 import CartItemDetail from '../CartItemDetail/CartItemDetail';
-import { getCategoriaLabel } from '../../../services/productos/ClasificacionProducto';
+import { getCategoriaLabel } from '../../../services/Productos/ClasificacionProducto';
 
 const CartGroupDetail = ({ categoria, items }) => {
   return (

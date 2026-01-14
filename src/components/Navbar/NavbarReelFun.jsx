@@ -6,7 +6,7 @@ import CartWidget from "./CartWidget/CartWidget";
 import { NavLink } from 'react-router-dom';
 import NavBarBrand from './NavBarBrand';
 import './NavBar.css'; 
-import {   categoriasNavConfig    } from '../../services/productos/ClasificacionProducto';
+import {   categoriasNavConfig    } from '../../services/Productos/ClasificacionProducto';
  
 const NavbarReelFun = () => {
   return ( 

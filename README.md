@@ -393,7 +393,7 @@ npm run dev
 ## Archivos Configuración
 
 - **.\src\services\firebase\conf\firebase-conf.js**: conexión a Firebase.
-- **.\src\services\productos\ClasificacionProducto.js**: configuracion de los Tipos y Categorias de los productos .
+- **.\src\services\Productos\ClasificacionProducto.js**: configuracion de los Tipos y Categorias de los productos .
 - **scripts/firebase/data.js**: estructura de datos para inicializar las coleeciones de productos, especificaciones y stock.
 
 ---
