@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { createContext } from 'react';
-import { getCategoria } from '../services/productos/ClasificacionProducto.js';
+import { getCategoria } from '../services/Productos/ClasificacionProducto.js';
 
   export const ReelFunContext = createContext();
 
