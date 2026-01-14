@@ -1,8 +1,8 @@
 import { doc,collection, getDoc,getDocs, query, Query, where } from "firebase/firestore"; 
 import { db } from "../conf/Firebase-conf";  
-import { getEspecificacionesByIdProducto } from "./Especificaciones";
-import { getStockByIdProducto } from "./Stock"; 
-import { createProductFromFirestore } from "../../../adapters/ProductoAdapter";
+import { getEspecificacionesByIdProducto } from "./especificaciones";
+import { getStockByIdProducto } from "./stock"; 
+import { createProductFromFirestore } from "../../../adapters/productoAdapter";
 import { getTiposInCategoria } from "../../Productos/ClasificacionProducto";
  
 export function getAllProductos(){
