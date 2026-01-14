@@ -1,4 +1,4 @@
-import { getAllProductos, getProductoByIdDoc, getProductosByCat } from '../firebase/firestore/Productos';
+import { getAllProductos, getProductoByIdDoc, getProductosByCat } from '../firebase/firestore/productos';
  
 export function loadProductos(){    
     return getAllProductos();
