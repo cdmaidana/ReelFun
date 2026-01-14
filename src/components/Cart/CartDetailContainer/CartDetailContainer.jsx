@@ -9,7 +9,7 @@ import { serverTimestamp } from 'firebase/firestore';
 import { createOrdenCompra } from '../../../services/firebase/firestore/OrdenesCompra';
 
 const CartDetailContainer = () => {
-  const { carrito, precioTotal, limpiarCarrito, carritoAgrupado } =
+  const { carrito, precioTotal, limpiarCarrito, carritoAgrupado, setOrdenConfirmada } =
     useContext(ReelFunContext);
   const navigate = useNavigate();
   const [error, setError] = useState(null);
@@ -40,7 +40,7 @@ const CartDetailContainer = () => {
       };
       
       const ordenCompraIdDoc = await createOrdenCompra(ordenCompra);
-
+      setOrdenConfirmada(true);
       navigate(`/orden-confirmada/${ordenCompraIdDoc}`);
 
     } catch (error) {

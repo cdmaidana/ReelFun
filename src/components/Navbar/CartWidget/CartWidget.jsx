@@ -7,9 +7,9 @@ import { ReelFunContext } from "../../../providers/CartContextProvider";
 
 const CartWidget = () => { 
   
-  const { totalItems } = useContext(ReelFunContext);
+  const { totalItems, ordenConfirmada } = useContext(ReelFunContext);
  
-  if (totalItems === 0) return null;
+  if (totalItems === 0 || ordenConfirmada ) return null;
 
   return (
     <NavLink className="nav-link-clean" to="/carrito">

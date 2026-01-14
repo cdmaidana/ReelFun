@@ -10,6 +10,8 @@ import { getCategoria } from '../services/productos/ClasificacionProducto';
 
     const [carrito,setCarrito] = useState([]);
 
+    const [ordenConfirmada,setOrdenConfirmada] = useState(false);
+
     const productoEnCarrito = (idProducto) => carrito.some(prod => prod.id === idProducto);
 
     const agregarProducto = (producto,cant) => {  
@@ -77,11 +79,11 @@ import { getCategoria } from '../services/productos/ClasificacionProducto';
       setCarrito(carrito => carrito.filter(item => item.id !== idProducto));
     };
 
-    const limpiarCarrito = () => setCarrito([]);
+    const limpiarCarrito = () => { setCarrito([]);setOrdenConfirmada(false)}
 
     return (
       <Provider
-        value={{ carrito, productoEnCarrito, agregarProducto, eliminarProducto, limpiarCarrito,precioTotal,precioXCategoria,totalItems,carritoAgrupado }}
+        value={{ carrito, productoEnCarrito, agregarProducto, eliminarProducto, limpiarCarrito,precioTotal,precioXCategoria,totalItems,carritoAgrupado,ordenConfirmada,setOrdenConfirmada }}
         >
         {children}  
       </Provider>  
