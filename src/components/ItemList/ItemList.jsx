@@ -6,13 +6,7 @@ const ItemList = ({ productos = [] }) => {
  
   if (!productos || productos.length === 0) {
     return (
-      <Container
-        fluid
-        className="d-flex flex-column justify-content-center align-items-center "
-      >
-        <Spinner animation="border" role="status"/>
-        <span className="mt-3">Cargando productos...</span> 
-      </Container>
+      <WaitingSpinner text="Aguarde un momento, cargando productos..." /> 
     );
   }
 
