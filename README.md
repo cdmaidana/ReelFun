@@ -287,7 +287,7 @@ Al finalizar la compra se conforma y genera en la base una Orden de Compra con l
 
 ---
 
-## ## Dependencias del Proyecto
+## Dependencias del Proyecto
 
 El proyecto utiliza las siguientes dependencias principales, organizadas por responsabilidad dentro de la aplicación:
 
