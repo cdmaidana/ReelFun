@@ -1,5 +1,6 @@
 import { addDoc, collection } from "firebase/firestore"; 
-import { db } from '../conf/Firebase-conf';
+import { db } from '../conf/firebase-conf';
+
 
 export async function createOrdenCompra(ordenCompra) {
   const ordersRef = collection(db, "ordenesCompra");
