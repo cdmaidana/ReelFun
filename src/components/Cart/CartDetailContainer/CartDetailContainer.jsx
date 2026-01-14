@@ -6,7 +6,7 @@ import CartEmpty from '../CartEmpty/CartEmpty';
 import { Link, useNavigate  } from 'react-router-dom';
 import { useUser } from '../../../providers/UserContextProvider';
 import { serverTimestamp } from 'firebase/firestore';
-import { createOrdenCompra } from '../../../services/firebase/firestore/ordenesCompra';
+import { createOrdenCompra } from '../../../services/firebase/firestore/OrdenesCompra';
 
 const CartDetailContainer = () => {
   const { carrito, precioTotal, limpiarCarrito, carritoAgrupado, setOrdenConfirmada } =
