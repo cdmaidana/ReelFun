@@ -447,4 +447,5 @@ Se puede acceder al aplicativo desde este [Link](https://dynamic-semolina-b3f51c
 
 ---
 
-**Autor:** Maidana César – Curso React JS (CoderHouse)
+**Autor:** Maidana César  
+**Contexto:**Proyecto Final Curso React JS -Comisión 81690 (CoderHouse)
